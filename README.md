@@ -1,6 +1,6 @@
 # MongoDB Agent LangGraph MCP
 
-This project provides a REPL to interact with a MongoDB instance using natural language, powered by LangChain.js MCP Adapter, LangGraph agent and Azure OpenAI.
+This project provides a REPL to interact with a MongoDB instance using natural language, powered by [LangChain.js MCP Adapter](https://github.com/langchain-ai/langchainjs-mcp-adapters?tab=readme-ov-file), LangGraph agent and Azure OpenAI.
 
 ## Features
 - Ask open-ended questions about your MongoDB instance
