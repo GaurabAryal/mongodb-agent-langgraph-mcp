@@ -1,0 +1,21 @@
+{
+  "type": "module",
+  "name": "mongodb-agent-langgraph-mcp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "client.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GaurabAryal/mongodb-agent-langgraph-mcp.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GaurabAryal/mongodb-agent-langgraph-mcp/issues"
+  },
+  "homepage": "https://github.com/GaurabAryal/mongodb-agent-langgraph-mcp#readme"
+}
