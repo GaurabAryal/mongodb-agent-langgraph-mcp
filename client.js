@@ -25,7 +25,7 @@ const transport = new StdioClientTransport({
 
 // Initialize the client
 const client = new Client({
-  name: "math-client",
+  name: "mdb-client",
   version: "1.0.0",
 });
 
