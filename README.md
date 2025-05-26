@@ -1,6 +1,8 @@
 # MongoDB Agent LangGraph MCP
 
-This project provides a REPL to interact with a MongoDB instance using natural language, powered by [LangChain.js MCP Adapter](https://github.com/langchain-ai/langchainjs-mcp-adapters?tab=readme-ov-file), LangGraph agent and Azure OpenAI.
+This project is a fork of [Gaurab MCP project](git@github.com:GaurabAryal/mongodb-agent-langgraph-mcp.git)
+
+This project provides a REPL to interact with a MongoDB instance using natural language, powered by [LangChain.js MCP Adapter](https://github.com/langchain-ai/langchainjs-mcp-adapters?tab=readme-ov-file), LangGraph agent and OpenAI.
 
 ## Features
 - Ask open-ended questions about your MongoDB instance
@@ -11,7 +13,7 @@ This project provides a REPL to interact with a MongoDB instance using natural l
 ## Prerequisites
 - Node.js (v18+ recommended)
 - npm
-- Access to an Azure OpenAI resource (API key, deployment, etc.)
+- Access to an OpenAI resource (API key, deployment, etc.)
 - Access to a running MongoDB instance
 
 ---
@@ -20,19 +22,17 @@ This project provides a REPL to interact with a MongoDB instance using natural l
 Ensure you have the following environment variables set:
 
 ```sh
-export AZURE_OAI_KEY="<your-azure-openai-api-key>"
-export AZURE_OAI_BASE_PATH="https://<your-resource-name>.openai.azure.com/"
-export AZURE_OAI_DEPLOYMENT_NAME="<your-deployment-name>"
-export AZURE_OAI_API_VERSION="<e.g. 2025-01-01-preview>"
+export OPENAI_API_KEY=
+export OPENAI_MODEL_NAME=gpt-3.5-turbo
+export TEMPERATURE=0
+export MONGO_CONNECTION_STRING=
 ```
-
-
 ---
 
 ## Installation
 1. **Clone the repository:**
    ```sh
-   git clone https://github.com/GaurabAryal/mongodb-agent-langgraph-mcp.git
+   git clone git@github.com:josmanperez/mongodb-agent-langgraph-mcp.git
    cd mongodb-agent-langgraph-mcp
    ```
 2. **Install dependencies:**
