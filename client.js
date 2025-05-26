@@ -1,26 +1,31 @@
+import { loadMcpTools } from "@langchain/mcp-adapters";
+import { createReactAgent } from "@langchain/langgraph/prebuilt";
+import { ChatOpenAI } from "@langchain/openai";
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { StdioClientTransport } from "@modelcontextprotocol/sdk/client/stdio.js";
-import { createReactAgent } from "@langchain/langgraph/prebuilt";
-import { loadMcpTools } from "@langchain/mcp-adapters";
-import { AzureChatOpenAI } from "@langchain/openai";
 import readline from "readline";
+import dotenv from "dotenv";
 
+// Load environment variables from .env file
+dotenv.config({ override: true });
 
-const model = new AzureChatOpenAI({
-  azureOpenAIApiKey: process.env.AZURE_OAI_KEY,
-  azureOpenAIBasePath: process.env.AZURE_OAI_BASE_PATH,
-  azureOpenAIApiDeploymentName: process.env.AZURE_OAI_DEPLOYMENT_NAME,
-  azureOpenAIApiVersion: process.env.AZURE_OAI_API_VERSION,
+const model = new ChatOpenAI({
+  openAIApiKey: process.env.OPENAI_API_KEY,
+  modelName: process.env.OPENAI_MODEL_NAME,
+  temperature: Number(process.env.TEMPERATURE) || 0,
+  // streaming:   true,                   // if you were streaming before
+  // verbose:     true,                   // if you want debug logs
 });
+
 // Automatically starts and connects to a MCP reference server
 const transport = new StdioClientTransport({
-    "command": "npx",
-    "args": [
-      "-y",
-      "mongodb-mcp-server",
-      "--connectionString",
-      "mongodb://localhost:27017/?directConnection=true"
-    ],
+  "command": "npx",
+  "args": [
+    "-y",
+    "mongodb-mcp-server",
+    "--connectionString",
+    process.env.MONGO_CONNECTION_STRING,
+  ],
 });
 
 // Initialize the client
@@ -56,11 +61,19 @@ try {
     "collection-storage-size",
     "db-stats"
   ];
-  const tools = await loadMcpTools(mongoTools, client, {
+  const tools = await loadMcpTools("mongo", client, {
     throwOnLoadError: true,
     prefixToolNameWithServerName: false,
     additionalToolNamePrefix: "",
   });
+
+  // **Patch every object-type schema** so OpenAI’s validator is happy
+  for (const tool of tools) {
+    if (tool.schema?.type === "object") {
+      tool.schema.properties ??= {};
+      tool.schema.required   ??= [];
+    }
+  }
 
   // Create the agent
   const agent = createReactAgent({ llm: model, tools });
